@@ -15,7 +15,7 @@ Use C++ [Eigen Library](http://eigen.tuxfamily.org/index.php?title=Main_Page)
 ### Namespace
 Our interface is within namespace `Quantum`. You might want to use
 ```
-using namespace Quantum
+using namespace Quantum;
 ```
 
 ### Qreg
