@@ -33,8 +33,8 @@ obj.measure(s,t);
 auto stateList = obj.slice(s,t);
 ```
 It represents a sum of product form,
-\[(u1,v1),(u2,v2),...(un,vn)\]
-where ui, vi are stored as pair within a list.
+and stored within a list of pairs,
+\[(u1,v1),(u2,v2),...(un,vn)\].
 - Use `a*b` to perform Kronecker product.
 ### Gate
 It represent unitary matrix acting on small number of bits.
