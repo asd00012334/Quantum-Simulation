@@ -49,7 +49,7 @@ and `n` is the total bit number
 
 ### Shor's Algorithm
 - Use `ShorFactor(N)` to return a trivial divisor.
-- Use `ShorPeriod(a,N)` to return the order of $a \mod N$ while a, N are co-prime.
+- Use `ShorPeriod(a,N)` to return the order of a mod N while a, N are co-prime.
 
 ### BibTeX
 ```bibtex
