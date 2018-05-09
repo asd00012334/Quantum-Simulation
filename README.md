@@ -50,3 +50,13 @@ and `n` is the total bit number
 ### Shor's Algorithm
 - Use `ShorFacto(N)` to return a trivial divisor.
 - Use `ShorPeriod(a,N)` to return the order of $a \mod N$ while a, N are co-prime.
+
+### BibTeX
+```bibtex
+@misc{source,
+  title={Quantum Simulation},
+  author={Yu-Hsuan Huang},
+  year={2018},
+  note = {available at \url{https://github.com/asd00012334/Quantum-Simulation}}
+}
+```
