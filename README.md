@@ -33,9 +33,7 @@ obj.measure(s,t);
 auto stateList = obj.slice(s,t);
 ```
 It represents a sum of product form,
-$$
-\sum_{i,j} u_i\otimes v_j
-$$
+\[(u1,v1),(u2,v2),...(un,vn)\]
 where $u_i, v_i$ are stored as pair within a list.
 - Use `a*b` to perform Kronecker product.
 ### Gate
@@ -45,11 +43,9 @@ It represent unitary matrix acting on small number of bits.
 - Use `gate1*gate2` to perform the Kronecker product of gates.
 
 ### Deutsch-Jozsa Algorithm
-- Use `DeutschJozsa(f, n)` to perform Deutsch-Jozsa algorithm, where
-$$
-f:\{0,1\}^n\rightarrow \{0,1\}
-$$
-is either constant or balanced.
+- Use `DeutschJozsa(f, n)` to perform Deutsch-Jozsa algorithm,
+where `f` is of a function handler either constant or balanced
+and `n` is the total bit number
 
 ### Shor's Algorithm
 - Use `ShorFacto(N)` to return a trivial divisor.
