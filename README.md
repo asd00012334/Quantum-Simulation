@@ -53,10 +53,10 @@ and `n` is the total bit number
 
 ### BibTeX
 ```bibtex
-@misc{qsim,
+@misc{source,
   title={Quantum Simulation},
-  author={Yu-Hsuan Huang},
+  author={Yu Hsuan Huang},
   year={2018},
-  note = {available at \url{https://github.com/asd00012334/Quantum-Simulation}}
+  howpublished = {https://github.com/asd00012334/Quantum-Simulation}
 }
 ```
