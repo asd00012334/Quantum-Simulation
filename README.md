@@ -43,3 +43,14 @@ It represent unitary matrix acting on small number of bits.
 - Use `gate(qubit)` to take act on a quantum register and return its output.
 - Use `gate1(gate2)` to perform composite of gates.
 - Use `gate1*gate2` to perform the Kronecker product of gates.
+
+### Deutsch-Jozsa Algorithm
+- Use `DeutschJozsa(f, n)` to perform Deutsch-Jozsa algorithm, where
+$$
+f:\{0,1\}^n\rightarrow \{0,1\}
+$$
+is either constant or balanced.
+
+### Shor's Algorithm
+- Use `ShorFacto(N)` to return a trivial divisor.
+- Use `ShorPeriod(a,N)` to return the order of $a \mod N$ while a, N are co-prime.
