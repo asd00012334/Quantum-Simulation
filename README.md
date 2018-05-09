@@ -44,7 +44,7 @@ It represent unitary matrix acting on small number of bits.
 
 ### Deutsch-Jozsa Algorithm
 - Use `DeutschJozsa(f, n)` to perform Deutsch-Jozsa algorithm,
-where `f` is of a function handler either constant or balanced
+where `f` is a function handler either constant or balanced
 and `n` is the total bit number
 
 ### Shor's Algorithm
