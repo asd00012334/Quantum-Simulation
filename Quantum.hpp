@@ -73,6 +73,12 @@ public:
             out[i] = l[i] + r[i];
         return out;
     }
+    friend Qreg& operator+=(Qreg& l, Qreg const& r){
+        assert(l.bitNum()==r.bitNum());
+        for(int i=0;i<l.stateNum();++i)
+            l[i] += r[i];
+        return l;
+    }
 
     friend ostream& operator<<(ostream& sout, Qreg const& reg){
         int term = 0;
@@ -90,6 +96,21 @@ public:
         Qreg out(__lg(t.cols()));
         assert(1<<out.bitNum()==t.cols() && t.rows()==1);
         out.state = t;
+        return out;
+    }
+
+    inline vector<int> sample(int s, int t, int num){
+        vector<int> out(num);
+        vector<double> pre(stateNum()-1,0);
+        pre[0] = abs(state(0,0))*abs(state(0,0));
+        for(int i=1;i<pre.size();++i)
+            pre[i] = pre[i-1] + abs(state(0,i))*abs(state(0,i));
+        while(num--){
+            int& sel = out[num];
+            double p = (double)rand()/RAND_MAX;
+            sel = upper_bound(pre.begin(),pre.end(),p)-pre.begin();
+            sel = mask(sel,s,t);
+        }
         return out;
     }
 
@@ -127,8 +148,9 @@ public:
     friend Qreg applySOP(vector<pair<Qreg,Qreg> > const& sop, function<Qreg(Qreg)>const& l, function<Qreg(Qreg)>const& r){
         assert(sop.size()>0);
         Qreg out(sop[0].first.bitNum()+sop[0].second.bitNum());
-        for(int i=0;i<sop.size();++i)
-            out = out + l(sop[i].first)*r(sop[i].second);
+        for(int i=0;i<sop.size();++i){
+            out += l(sop[i].first)*r(sop[i].second);
+        }
         return out;
     }
 
@@ -191,18 +213,10 @@ static const Gate
     });
 
 Qreg Hadamard(Qreg const& r){
-    static vector<Gate> Hn;
-    static int init=1;
-    if(init){
-        init = 0;
-        Hn.push_back(H);
-        for(int i=1;i<=10;++i)
-            Hn.push_back(Hn.back()*H);
-    }
-    if(r.bitNum()<=Hn.size())
-        return Hn[r.bitNum()-1](r);
-    assert(r.bitNum()<=20);
-    return applySOP(r.slice(Hn.size(),r.bitNum()),Hn[r.bitNum()-Hn.size()-1],Hn.back());
+    Qreg out(r);
+    assert(r.bitNum()<=BIT_CNT);
+    fwht(&out[0],&out[1<<out.bitNum()]); /// !! notice: access violation?
+    return out;
 }
 
 Qreg QFT(Qreg const& r){
@@ -259,7 +273,7 @@ inline int approxPeriod(int a, int N, int b, int Q){
         swap(km2,km1);
         int g = __gcd(km1,hm1);
         km1 /= g, hm1 /=g;
-        // cout<<hm1<<"/"<<km1<<", ";
+         cout<<hm1<<"/"<<km1<<", ";
         if(km1>=N) return km2;
     }
     return km1;
@@ -286,7 +300,7 @@ int ShorPeriod(int a, int N){
         Qreg out = mid.applySlice(valQ,q+valQ,QFT);
 
         int b = out.measure(valQ,q+valQ);
-
+cout<<b<<"::\n";
         int r = approxPeriod(a,N,b,Q);
         if(r>0 && f(r)==1) return r;
     }
