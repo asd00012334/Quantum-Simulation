@@ -38,9 +38,13 @@ public:
 
     friend tensor tprod(tensor const& l, tensor const& r){
         tensor out(l.rows()*r.rows(),l.cols()*r.cols());
-        for(int i=0;i<out.rows();++i)
-        for(int j=0;j<out.cols();++j)
-            out(i,j) = l(i/r.rows(), j/r.cols()) * r(i%r.rows(), j%r.cols());
+        for(int iG=0,ii=0;iG+r.rows()<=out.rows();iG+=r.rows(),++ii)
+        for(int jG=0,jj=0;jG+r.cols()<=out.cols();jG+=r.cols(),++jj){
+            if(abs(l(ii,jj))<eps) continue;
+            for(int iL=0;iL<r.rows();++iL)
+            for(int jL=0;jL<r.cols();++jL)
+                out(iG+iL,jG+jL) = l(ii, jj) * r(iL, jL);
+        }
         return out;
     }
 
